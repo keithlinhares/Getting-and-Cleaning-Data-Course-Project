@@ -1,0 +1,27 @@
+---
+title: "CodeBook"
+author: "Keith Linhares"
+date: "Thursday, April 23, 2015"
+output: pdf_document
+---
+
+This is an R Markdown document. This describes the steps used for the Getting and Cleaning Data Course Project.
+
+The data was a bit confusing to me at first, so I utilized help from the Discussion forum as 
+well as a bit of googling to complete the assignment. 
+
+The first step to me was understanding how the various tables should fit together. After thinking about it, I organized it as such:
+- X_Test and X_Train needed to be row binded
+- Y_Test and Y_Train needed to be row binded
+- Features would become the variable names(column names) for the X and Y data
+- The Subject and Activity data would need to be column binded and named accordingly.
+
+This was done with the use of few rbind() and cbind() commands
+
+The data has a lot of excess columns that we are not concerned with. To limit to the correct columns, I created a query of the colnames using Grep and the keywords I was after. Because there were columns that deals with Freq of Mean that I did not want to include, I limited to colnames with "mean()" by inputting mean\\(\\) in my grep command.  This left me with just the Mean, Standard Deviation, Subject, and Activity columns.
+
+Next, the Activities were numbered 1-6. I replaced these in a manual way by saying, if the field = 1, call it Walking, if field = 2, call it Walking_upstairs, and so on. I wish I knew a better way to do this. I am familiar with Excel so I know I would use VLOOKUP there.
+
+My next step was making the variable names a little better. I took a little help on this one and used a for loop to go through the column and rename each value I gave accordingly. THis makes the names a bit easier to read/understand.
+
+I then created a new "tidydata" data frame that aggregated the all columns by subject and activity leaving me with 180 rows with the mean of all the column values by subject/activity.
